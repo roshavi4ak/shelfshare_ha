@@ -145,9 +145,35 @@ class ShelfShareSensor(CoordinatorEntity[ShelfShareCoordinator], SensorEntity):
                 return {"notifications": notifications}
 
         if key in {"lent_out_active_count", "borrowed_active_count"}:
-            lends = data.get("recent_lends", [])
+            lends_key = (
+                "lent_out_active"
+                if key == "lent_out_active_count"
+                else "borrowed_active"
+            )
+            lends = data.get(lends_key, data.get("recent_lends", []))
             if isinstance(lends, list):
                 return {"recent_lends": lends}
+
+        if key == "libraries_count":
+            libraries = data.get("libraries", [])
+            if isinstance(libraries, list):
+                return {"libraries": libraries}
+
+        if key == "owned_libraries_count":
+            libraries = data.get("libraries", [])
+            if isinstance(libraries, list):
+                owned = [
+                    library
+                    for library in libraries
+                    if isinstance(library, dict)
+                    and library.get("owner_id") == data.get("user", {}).get("id")
+                ]
+                return {"libraries": owned}
+
+        if key == "collection_games_count":
+            preview = data.get("collection_preview", [])
+            if isinstance(preview, list):
+                return {"collection_preview": preview}
 
         if key == "api_health":
             diagnostics = self.coordinator.local_diagnostics()
