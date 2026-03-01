@@ -1,0 +1,98 @@
+title: ShelfShare
+views:
+  - title: ShelfShare
+    path: shelfshare
+    icon: mdi:bookshelf
+    cards:
+      - type: entities
+        title: Overview
+        show_header_toggle: false
+        entities:
+          - entity: sensor.shelfshare_upcoming_events
+            name: Upcoming Events
+          - entity: sensor.shelfshare_lent_out_active
+            name: Lent Out (Active)
+          - entity: sensor.shelfshare_borrowed_active
+            name: Borrowed (Active)
+          - entity: sensor.shelfshare_collection_games
+            name: Collection Games
+          - entity: sensor.shelfshare_libraries
+            name: Libraries
+          - entity: sensor.shelfshare_owned_libraries
+            name: Owned Libraries
+          - entity: sensor.shelfshare_unread_notifications
+            name: Unread Notifications
+          - entity: sensor.shelfshare_actionable_notifications
+            name: Actionable Notifications
+          - entity: sensor.shelfshare_last_sync
+            name: Last Sync
+          - entity: sensor.shelfshare_api_health
+            name: API Health
+
+      - type: markdown
+        title: Upcoming Events
+        content: >
+          {% set events = state_attr('sensor.shelfshare_upcoming_events', 'events') or [] %}
+          {% if events | length == 0 %}
+          No upcoming events.
+          {% else %}
+          {% for e in events[:5] %}
+          - **{{ e.name }}**
+            {% if e.start_date %}
+            ({{ as_datetime(e.start_date).strftime('%Y-%m-%d %H:%M') }})
+            {% endif %}
+            {% if e.location_name %}
+            — {{ e.location_name }}
+            {% endif %}
+          {% endfor %}
+          {% endif %}
+
+      - type: markdown
+        title: Recent Notifications
+        content: >
+          {% set notifications = state_attr('sensor.shelfshare_unread_notifications', 'notifications') or [] %}
+          {% if notifications | length == 0 %}
+          No recent notifications.
+          {% else %}
+          {% for n in notifications[:8] %}
+          - **#{{ n.id }}** [{{ n.type }}] {{ n.message }}
+          {% endfor %}
+          {% endif %}
+
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            title: Notification Actions
+            content: >
+              Use Developer Tools → Services with the buttons below.
+              Replace `notification_id`, `notification_type`, and `related_id` values as needed.
+
+          - type: button
+            name: Mark Notification 123 Read
+            icon: mdi:check-circle-outline
+            tap_action:
+              action: call-service
+              service: shelfshare.mark_notification_read
+              data:
+                notification_id: 123
+
+          - type: button
+            name: Complete Notification 123
+            icon: mdi:check-all
+            tap_action:
+              action: call-service
+              service: shelfshare.complete_notification
+              data:
+                notification_id: 123
+
+          - type: button
+            name: Accept Lend Request Example
+            icon: mdi:thumb-up-outline
+            tap_action:
+              action: call-service
+              service: shelfshare.run_notification_action
+              data:
+                notification_id: 123
+                notification_type: lend_request
+                related_id: "456"
+                decision: accept

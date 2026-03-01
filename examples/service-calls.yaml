@@ -1,0 +1,53 @@
+# ShelfShare Home Assistant service-call examples
+
+# Force immediate refresh
+service: shelfshare.refresh_now
+data: {}
+
+---
+
+# Get diagnostics (response-capable service)
+service: shelfshare.get_diagnostics
+data: {}
+
+# Mark notification as read
+service: shelfshare.mark_notification_read
+data:
+  notification_id: 123
+
+---
+
+# Complete notification
+service: shelfshare.complete_notification
+data:
+  notification_id: 123
+
+---
+
+# Accept actionable notification (lend request example)
+service: shelfshare.run_notification_action
+data:
+  notification_id: 123
+  notification_type: lend_request
+  related_id: "456"
+  decision: accept
+
+---
+
+# Decline actionable notification (event invite example)
+service: shelfshare.run_notification_action
+data:
+  notification_id: 321
+  notification_type: event_invite
+  related_id: "d8f905fd-74f0-4e66-8a5f-8a74f9f69de8"
+  decision: decline
+
+---
+
+# Snooze actionable notification type
+service: shelfshare.run_notification_action
+data:
+  notification_id: 222
+  notification_type: library_invite
+  related_id: "a165ef9a-8b8e-4f13-8f92-08025537d006"
+  decision: snooze

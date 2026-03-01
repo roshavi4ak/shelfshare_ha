@@ -1,0 +1,14 @@
+{
+  "domain": "shelfshare",
+  "name": "ShelfShare",
+  "version": "0.3.0",
+  "documentation": "https://github.com/roshavi4ak/ShelfShare",
+  "issue_tracker": "https://github.com/roshavi4ak/ShelfShare/issues",
+  "requirements": [],
+  "codeowners": [
+    "@roshavi4ak"
+  ],
+  "config_flow": true,
+  "iot_class": "cloud_polling",
+  "integration_type": "service"
+}

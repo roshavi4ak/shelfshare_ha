@@ -1,0 +1,11 @@
+{
+  "name": "ShelfShare",
+  "content_in_root": false,
+  "country": "BG",
+  "homeassistant": "2024.8.0",
+  "domains": [
+    "sensor"
+  ],
+  "iot_class": "cloud_polling",
+  "filename": "custom_components/shelfshare/manifest.json"
+}

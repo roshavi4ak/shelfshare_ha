@@ -1,0 +1,101 @@
+refresh_now:
+  name: Refresh now
+  description: Immediately refreshes ShelfShare data from the backend.
+  fields:
+    entry_id:
+      name: Config entry id
+      description: Optional ShelfShare config entry id when multiple entries are configured.
+      required: false
+      selector:
+        text:
+
+get_diagnostics:
+  name: Get diagnostics
+  description: Returns local coordinator and backend diagnostics for ShelfShare.
+  fields:
+    entry_id:
+      name: Config entry id
+      description: Optional ShelfShare config entry id when multiple entries are configured.
+      required: false
+      selector:
+        text:
+
+mark_notification_read:
+  name: Mark notification as read
+  description: Marks a ShelfShare notification as read.
+  fields:
+    entry_id:
+      name: Config entry id
+      description: Optional ShelfShare config entry id when multiple entries are configured.
+      example: "abc123entry"
+      required: false
+      selector:
+        text:
+    notification_id:
+      name: Notification id
+      description: Numeric ShelfShare notification id.
+      required: true
+      example: 123
+      selector:
+        number:
+          mode: box
+
+complete_notification:
+  name: Complete notification
+  description: Marks a ShelfShare notification as read and completed.
+  fields:
+    entry_id:
+      name: Config entry id
+      required: false
+      selector:
+        text:
+    notification_id:
+      name: Notification id
+      required: true
+      example: 123
+      selector:
+        number:
+          mode: box
+
+run_notification_action:
+  name: Run notification action
+  description: Runs an actionable ShelfShare notification decision.
+  fields:
+    entry_id:
+      name: Config entry id
+      required: false
+      selector:
+        text:
+    notification_id:
+      name: Notification id
+      required: true
+      example: 123
+      selector:
+        number:
+          mode: box
+    notification_type:
+      name: Notification type
+      description: ShelfShare notification type.
+      required: true
+      example: lend_request
+      selector:
+        text:
+    related_id:
+      name: Related id
+      description: Related item id from ShelfShare notification payload.
+      required: true
+      example: "456"
+      selector:
+        text:
+    decision:
+      name: Decision
+      description: Action decision to execute.
+      required: false
+      default: view
+      selector:
+        select:
+          options:
+            - accept
+            - decline
+            - snooze
+            - view

@@ -1,0 +1,34 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "ShelfShare",
+        "description": "Connect your ShelfShare account using a Home Assistant API key.",
+        "data": {
+          "base_url": "Supabase base URL",
+          "api_key": "ShelfShare API key",
+          "name": "Name"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to ShelfShare",
+      "invalid_auth": "Invalid API key",
+      "invalid_response": "Unexpected response from ShelfShare",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "This ShelfShare URL is already configured"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "ShelfShare options",
+        "data": {
+          "scan_interval": "Polling interval (seconds)"
+        }
+      }
+    }
+  }
+}
