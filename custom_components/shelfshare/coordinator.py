@@ -58,6 +58,8 @@ class ShelfShareCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         return {
             "Content-Type": "application/json",
             "x-shelfshare-api-key": self._api_key,
+            "Authorization": f"Bearer {self._api_key}",
+            "apikey": self._api_key,
         }
 
     def _now_iso(self) -> str:

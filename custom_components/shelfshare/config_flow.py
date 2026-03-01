@@ -20,7 +20,11 @@ async def _validate_input(hass, data: dict[str, Any]) -> dict[str, Any]:
     try:
         async with session.get(
             f"{base_url}{SUMMARY_PATH}",
-            headers={"x-shelfshare-api-key": api_key},
+            headers={
+                "x-shelfshare-api-key": api_key,
+                "Authorization": f"Bearer {api_key}",
+                "apikey": api_key,
+            },
             timeout=20,
         ) as response:
             if response.status in (401, 403):
