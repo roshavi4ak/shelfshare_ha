@@ -2,6 +2,19 @@
 
 All notable changes to the ShelfShare Home Assistant integration are documented in this file.
 
+## [0.3.1] - 2026-03-01
+
+### Fixed
+- Summary endpoint now counts libraries and upcoming events using the same membership rules as the app (`owner/creator OR members`).
+- `libraries_count` and `owned_libraries_count` now match app data for users who own libraries but are not explicitly in `members`.
+
+### Changed
+- Added richer sensor attributes:
+	- `sensor.shelfshare_libraries` includes `libraries`
+	- `sensor.shelfshare_owned_libraries` includes owned `libraries`
+	- `sensor.shelfshare_collection_games` includes `collection_preview`
+	- lend/borrow sensors now expose direction-specific active lend lists.
+
 ## [0.3.0] - 2026-03-01
 
 ### Added
