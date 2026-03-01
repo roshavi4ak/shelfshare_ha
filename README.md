@@ -104,3 +104,19 @@ In Home Assistant:
   - `python home_assistant/shelfshare/scripts/smoke_test_endpoints.py --base-url https://<project-ref>.supabase.co --api-key <ha_api_key> --test-action mark_notification_read --notification-id 123`
 - Summary + notification_action test:
   - `python home_assistant/shelfshare/scripts/smoke_test_endpoints.py --base-url https://<project-ref>.supabase.co --api-key <ha_api_key> --test-action notification_action --notification-id 123 --notification-type lend_request --related-id 456 --decision accept`
+
+## Sync to split repository
+
+If you edit this integration in the monorepo workspace and publish from the dedicated repo folder (`release/shelfshare_ha`), use:
+
+- Dry run (show planned changes only):
+  - `powershell -File home_assistant/shelfshare/scripts/sync_split_repo.ps1 -DryRun`
+- Sync files only:
+  - `powershell -File home_assistant/shelfshare/scripts/sync_split_repo.ps1`
+- Sync + commit + push:
+  - `powershell -File home_assistant/shelfshare/scripts/sync_split_repo.ps1 -Commit -Push`
+
+Defaults:
+- Source: `home_assistant/shelfshare`
+- Destination: sibling folder `release/shelfshare_ha`
+- Mode: mirror (destination extras are removed). Use `-NoDelete` to keep destination-only files.
